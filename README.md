@@ -1,38 +1,38 @@
-Role Name
-=========
+# [Install my-screnrc with Ansible](https://github.com/thydel/ar-my-screenrc)
 
-A brief description of the role goes here.
+- Install a screenrc template
+- Crypt and use a password if requested (use no_log)
+  
+## Usage
 
-Requirements
-------------
+Install via [Galaxy](https://galaxy.ansibleworks.com/):
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+```
+ansible-galaxy install thydel.my-screenrc
+```
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+`screen_password` is the clear text password presumably from vault or
+vars_prompt. Ignored by template if undefined or empty string.
 
-Dependencies
-------------
+## Example Playbook
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+```yaml
+- hosts: all
+  user: thy
+  vars_prompt:
+    - name: screen password
+      prompt: screen_password
+      private: yes
+  roles:
+	- thydel.my-screenrc
+```
 
-Example Playbook
-----------------
+## Notes
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
-License
--------
-
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+- Should take user as parameter
+- Should allow use of user system password
+- Could allow multiple user setup
+- Could allow multiple screenc switch
+- Could allow parametric predefined screen context

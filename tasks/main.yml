@@ -1,2 +1,50 @@
+# -*- Mode: YAML; indent-tabs-mode: nil; fill-column: 96; -*-
+
 ---
-# tasks file for /home/thy/usr/thydel/ar-my-screenrc
+
+- name: screenrc - apt
+  apt: name=screen
+
+- debug: var=screen_password
+
+- set_fact:
+    user: thy
+    dir: ~/.thy
+    files: [ screenrc ]
+    file: screenrc
+    link: .screenrc
+    salt: 42
+    password: |
+      {{ screen_password is defined and screen_password != '' }}
+
+- name: screenrc - out dot dir
+  file: path={{ dir }} state=directory
+
+- name: screenrc - allow check mode
+  file: path={{ dir }} state=directory
+  register: dirp
+
+- set_fact:
+    dir_created: |
+      {{ not dirp.changed }}
+
+- name: screenrc - generate crypted password
+  command: mkpasswd {{ screen_password }} {{ salt }}
+  register: mkpasswd
+  no_log: True
+  always_run: True
+  when: password | bool
+  delegate_to: localhost
+
+- set_fact:
+    crypted_screen_password: |
+      {{ mkpasswd.stdout }}
+  when: password | bool
+    
+- name: screenrc - generate file
+  template: src={{ item }}.j2 dest={{ dir }}/{{ item }}
+  with_items: files
+
+- name: screenrc - link to our file
+  file: state=link src={{ dir }}/{{ file }} dest=~/{{ link }}
+  when: dir_created
