@@ -5,8 +5,6 @@
 - name: screenrc - apt
   apt: name=screen
 
-- debug: var=screen_password
-
 - set_fact:
     user: thy
     dir: ~/.thy
