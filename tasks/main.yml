@@ -2,8 +2,9 @@
 
 ---
 
-- name: screenrc - apt
-  apt: name=screen
+- assert:
+    that:
+      - ansible_ssh_user != 'root'
 
 - set_fact:
     user: thy
@@ -43,6 +44,10 @@
   template: src={{ item }}.j2 dest={{ dir }}/{{ item }}
   with_items: files
 
+- name: screenrc - allow check mode
+  command: date
+  register: date
+
 - name: screenrc - link to our file
   file: state=link src={{ dir }}/{{ file }} dest=~/{{ link }}
-  when: dir_created
+  when: not date|skipped
