@@ -6,16 +6,6 @@
     that:
       - ansible_ssh_user != 'root'
 
-- set_fact:
-    user: thy
-    dir: ~/.thy
-    files: [ screenrc ]
-    file: screenrc
-    link: .screenrc
-    salt: 42
-    password: |
-      {{ screen_password is defined and screen_password != '' }}
-
 - name: screenrc - out dot dir
   file: path={{ dir }} state=directory
 
@@ -47,6 +37,7 @@
 - name: screenrc - allow check mode
   command: date
   register: date
+  changed_when: False
 
 - name: screenrc - link to our file
   file: state=link src={{ dir }}/{{ file }} dest=~/{{ link }}

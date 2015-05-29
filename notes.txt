@@ -1,0 +1,7 @@
+source ~/usr/ext/stable-1.9/hacking/env-setup
+
+ansible-playbook -i localhost, -c local screenrc-play.yml --diff
+
+screen -RdS thy
+
+screen -c ~/.thy/remote.screen -RdS rem
