@@ -6,7 +6,7 @@
     that:
       - ansible_ssh_user != 'root'
 
-- name: screenrc - out dot dir
+- name: screenrc - our dot dir
   file: path={{ dir }} state=directory
 
 - name: screenrc - allow check mode
