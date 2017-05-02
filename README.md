@@ -7,8 +7,14 @@
 
 Install via [Galaxy](https://galaxy.ansibleworks.com/):
 
-```
+```bash
 ansible-galaxy install thydel.my-screenrc
+```
+
+Or use from local clone:
+
+```bash
+screenrc-play.yml -i $somenode, -D
 ```
 
 ## Role Variables
@@ -36,3 +42,4 @@ vars_prompt. Ignored by template if undefined or empty string.
 - Could allow multiple user setup
 - Could allow multiple screenc switch
 - Could allow parametric predefined screen context
+

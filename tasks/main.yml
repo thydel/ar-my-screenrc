@@ -1,20 +1,22 @@
-# -*- Mode: YAML; indent-tabs-mode: nil; fill-column: 96; -*-
-
 ---
 
 - assert:
     that:
-      - ansible_ssh_user != 'root'
+      - ansible_user_id != 'root'
 
 - name: screenrc - our dot dir
-  file: path={{ dir }} state=directory
+  file:
+    path: '{{ dir }}'
+    state: directory
 
 - name: screenrc - allow check mode
-  file: path={{ dir }} state=directory
+  file:
+    path: '{{ dir }}'
+    state: directory
   register: dirp
 
 - set_fact:
-    dir_created: |
+    dir_created: |-
       {{ not dirp.changed }}
 
 - name: screenrc - generate crypted password
@@ -26,13 +28,15 @@
   delegate_to: localhost
 
 - set_fact:
-    crypted_screen_password: |
+    crypted_screen_password: |-
       {{ mkpasswd.stdout }}
   when: password | bool
     
 - name: screenrc - generate file
-  template: src={{ item }}.j2 dest={{ dir }}/{{ item }}
-  with_items: files
+  template:
+    src: '{{ item }}.j2'
+    dest: '{{ dir }}/{{ item }}'
+  with_items: '{{ files }}'
 
 - name: screenrc - allow check mode
   command: date
@@ -40,5 +44,8 @@
   changed_when: False
 
 - name: screenrc - link to our file
-  file: state=link src={{ dir }}/{{ file }} dest=~/{{ link }}
-  when: not date|skipped
+  file:
+    state: link
+    src: '{{ dir }}/{{ file }}'
+    dest: ~/{{ link }}
+  when: not date | skipped

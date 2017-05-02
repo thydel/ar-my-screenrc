@@ -4,14 +4,11 @@ galaxy_info:
   description: Install a screenrc template
   company: EpiConcept
   license: MIT
-  min_ansible_version: 1.8
+  min_ansible_version: 2.3
   platforms:
-  - name: Ubuntu
-    versions:
-    - trusty
   - name: Debian
     versions:
-    - wheezy
+    - jessie
   categories:
   - system
 dependencies: []

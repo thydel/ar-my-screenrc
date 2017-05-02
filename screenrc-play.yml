@@ -1,3 +1,4 @@
+#!/usr/bin/env ansible-playbook
 ---
 
 - hosts: all
@@ -5,10 +6,10 @@
   user: root
   tasks:
     - name: screenrc - apt
-      apt: name=screen
+      apt: { name: screen }
 
 - hosts: all
-  gather_facts: False
+  gather_facts: True
 
   vars_prompt:
     - name: screen_password
