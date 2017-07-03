@@ -17,7 +17,7 @@
       private: yes
 
   roles:
-    - role: .
+    - role: self
       user: thy
       dir: ~/.thy
       files: [ local.screen, remote.screen ]
