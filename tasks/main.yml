@@ -23,7 +23,7 @@
   command: mkpasswd {{ screen_password }} {{ salt }}
   register: mkpasswd
   no_log: True
-  always_run: True
+  check_mode: False
   when: password | bool
   delegate_to: localhost
 
