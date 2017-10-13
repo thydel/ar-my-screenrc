@@ -14,7 +14,8 @@ ansible-galaxy install thydel.my-screenrc
 Or use from local clone:
 
 ```bash
-screenrc-play.yml -i $somenode, -D
+sudo aptitude install whois # mkpasswd
+screenrc-play.yml -i locahost, -c local -D
 ```
 
 ## Role Variables
