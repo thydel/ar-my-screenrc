@@ -1,0 +1,20 @@
+##  -*- Mode: jinja2; -*-
+
+# ~/.screenrc2
+# use visual bell
+vbell on
+# replace ctrl-A by ctrl-Z
+escape ^Jj
+# set a big scrolling buffer
+defscrollback 5000
+# Set the caption on the bottom line
+caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= @%H - %LD %d %LM - %c"
+
+term xterm-256color
+defmousetrack on
+
+shell -/bin/bash
+
+{% if crypted_screen_password is defined %}
+password {{ crypted_screen_password }}
+{% endif %}

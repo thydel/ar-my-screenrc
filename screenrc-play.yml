@@ -20,7 +20,7 @@
     - role: self
       user: thy
       dir: ~/.thy
-      files: [ local.screen, remote.screen ]
+      files: [ local.screen, remote.screen, desk.screen ]
       file: local.screen
       link: .screenrc
       salt: 42
