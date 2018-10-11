@@ -18,8 +18,8 @@
 
   roles:
     - role: self
-      user: thy
-      dir: ~/.thy
+      user: '{{ lookup("env", "USER") }}'
+      dir: ~/.{{ lookup("env", "USER") }}
       files: [ local.screen, remote.screen, desk.screen ]
       file: local.screen
       link: .screenrc
